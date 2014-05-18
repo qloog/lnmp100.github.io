@@ -18,7 +18,7 @@ DEFAULT_DATE = 'fs'  # use filesystem's mtime
 LOCALE = ('zh_CN.UTF-8',)
 DEFAULT_LANG = u'zh_CN'
 FILENAME_METADATA = '(?P<slug>.*)'
-#DISQUS_SITENAME = 'atime-me'
+DISQUS_SITENAME = 'lnmp100'
 GOOGLE_ANALYTICS = ''
 # feed config
 FEED_DOMAIN = SITEURL
