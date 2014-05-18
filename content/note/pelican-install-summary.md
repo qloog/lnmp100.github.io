@@ -140,7 +140,8 @@ Pelican本身也提供了一些主题可供选择, 可以从github克隆下来
 
 然后在里面找到想要的主题, 然后拷到博客项目当前目录, 这里已neat为例
 
-    cp -r /path/to/themes/from/github/neat .
+    mv pelican-themes themes
+    cp -r /path/to/themes/from/github/neat ./themes/
 
 然后在 pelicanconf.py 配置文件里添加或修改 THEME项为 neat
 
@@ -159,9 +160,13 @@ Pelican 一开始是将插件内置的, 但是新版本 Pelican将插件隔离�
 
 现在我们博客目录就新添了一个 pelican-plugins目录, 我们已配置sitemap插件为例, sitemap插件可以生成 sitemap.xml 供搜索引擎使用
 
+为了让插件目录短一点，我这里改一下
+
+    mv pelican-plugins plugins
+
 在pelicanconf.py配置文件里加上如下项:
 
-    PLUGIN_PATH = u"pelican-plugins"
+    PLUGIN_PATH = u"plugins"
     PLUGINS = ["sitemap"]
 
 ## 配置sitemap 插件
@@ -210,15 +215,21 @@ Pelican 一开始是将插件内置的, 但是新版本 Pelican将插件隔离�
 ## 将博客部署到github上
 博客最终是要放到互联网上供人看的，此处就是将博客上传上去，在上传之前，要确保github上有一个仓库命令规是username.github.io,其中username为你的github帐号
 
+Create a new repository on the command line
+
     cd blog
     git init
     git add .
-    git remote add origin https://github.com/username.github.io.git
-    git pull origin master
-    git commit -am 'commit'
+    git commit -m "first commit"
+    git remote add origin git@github.com:qloog/lnmp100.github.io.git
     git push -u origin master
 
-执行完上面命令后即将博客上传至github服务器上，打开浏览器输入http://username.github.io即可访问，如果你觉的上面的命令过于复杂，你也直接可以将其添加到Makefile中
+Push an existing repository from the command line
+
+    git remote add origin git@github.com:qloog/lnmp100.github.io.git
+    git push -u origin master
+
+执行完上面命令后即将博客上传至github服务器上，打开浏览器输入http://lnmp100.github.io即可访问，如果你觉的上面的命令过于复杂，你也直接可以将其添加到Makefile中
 
 ## 独立域名与DNS解析
 在Godaddy上用支付宝花购买为期一年的顶级域名，并去修改Nameservers为这两个地址：f1g1ns1.dnspod.net、f1g1ns2.dnspod.net。
