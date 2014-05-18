@@ -139,46 +139,16 @@ Pelican 使用Disqus评论, 可以申请在Disqus上申请一个站点, 然后�
 Pelican本身也提供了一些主题可供选择, 可以从github克隆下来
 
     git clone git://github.com/getpelican/pelican-themes.git     # 主题
-    //or 更推荐用子模块的方式引入主题目录
-    git submodule add  https://github.com/getpelican/pelican-themes pelican-themes
-
-执行完git submodule add 会生成一个文件：.gitmodules， 里面包含了主题的url和路径
-
-    [submodule "pelican-themes"]
-        path = pelican-themes
-        url = https://github.com/getpelican/pelican-themes
-
-如果前面是已经用了clone 的方式安装，没关系，可以通过下面的来处理
-后面插件的方式类似，这里就一起做处理
-
-    rm -rf pelican-themes
-    rm -rf pelican-plugins
-    ga . -A
-    gc -m "remove 2 submodule dirs "
-    git submodule add  https://github.com/getpelican/pelican-themes pelican-themes
-    git submodule add  https://github.com/getpelican/pelican-plugins pelican-plugins
 
 安装niu-x2-sidebar 主题
 
-    git submodule add https://github.com/mawenbao/niu-x2-sidebar pelican-themes/niu-x2-sidebar
-
-如果安装时提示：
-
-    The following path is ignored by one of your .gitignore files:
-    pelican-themes/niu-x2-sidebar
-    Use -f if you really want to add it.
-
-可通过下面方式安装：
-
     git submodule add -f https://github.com/mawenbao/niu-x2-sidebar pelican-themes/niu-x2-sidebar
 
-主题已经安装成功, 现在.gitmodules 里应该有
+主题安装成功, 安装时会自动生成文件.gitmodules:
 
     [submodule "pelican-themes/niu-x2-sidebar"]
         path = pelican-themes/niu-x2-sidebar
         url = http://github.com/mawenbao/niu-x2-sidebar
-
-但是没有加到 .gitmodules，暂时没找到解决方法。。。
 
 然后在 pelicanconf.py 配置文件里添加或修改 THEME项为 niu-x2-sidebar
 
@@ -195,18 +165,12 @@ Pelican本身也提供了一些主题可供选择, 可以从github克隆下来
 Pelican 一开始是将插件内置的, 但是新版本 Pelican将插件隔离了出来, 所以我们要到github上 克隆一份新的插件, 在博客目录执行
 
     git clone git://github.com/getpelican/pelican-plugins.git    # 插件
-    //or 同主题，更推荐下面这种
-    git submodule add  https://github.com/getpelican/pelican-plugins pelican-plugins
 
 现在我们博客目录就新添了一个 pelican-plugins目录, 我们已配置sitemap插件为例, sitemap插件可以生成 sitemap.xml 供搜索引擎使用
 
-为了让插件目录短一点，我这里改一下
-
-    mv pelican-plugins plugins
-
 在pelicanconf.py配置文件里加上如下项:
 
-    PLUGIN_PATH = u"plugins"
+    PLUGIN_PATH = u"pelican-plugins"
     PLUGINS = ["sitemap"]
 
 ## 配置sitemap 插件
