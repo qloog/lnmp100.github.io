@@ -8,6 +8,7 @@ Tags: Pelican
 Pelican是一套开源的使用Python编写的博客静态生成, 可以添加文章和和创建页面, 可以使用MarkDown reStructuredText 和 AsiiDoc 的格式来抒写, 同时使用 Disqus评论系统, 支持 RSS和Atom输出, 插件, 主题, 代码高亮等功能, 采用Jajin2模板引擎, 可以很容易的更改模板
 
 ## 安装virtualenv
+
 可以从github克隆最新的代码安装, 并且建议在virtualenv下使用:
 
     pip install virtualenv
@@ -125,7 +126,7 @@ Pelican是一套开源的使用Python编写的博客静态生成, 可以添加�
 ## 让Pelican支持评论
 Pelican 使用Disqus评论, 可以申请在Disqus上申请一个站点, 然后在pelicanconf.py里添加或修改DISQUS_SITENAME项:
 
-    DISQUS_SITENAME = u"linuxzen"
+    DISQUS_SITENAME = u"lnmp100"
 
 执行
 
@@ -134,18 +135,54 @@ Pelican 使用Disqus评论, 可以申请在Disqus上申请一个站点, 然后�
 浏览器打开 http://localhost:8000查看效果
 
 ## 更换主题
+
 Pelican本身也提供了一些主题可供选择, 可以从github克隆下来
 
     git clone git://github.com/getpelican/pelican-themes.git     # 主题
+    //or 更推荐用子模块的方式引入主题目录
+    git submodule add  https://github.com/getpelican/pelican-themes pelican-themes
 
-然后在里面找到想要的主题, 然后拷到博客项目当前目录, 这里已neat为例
+执行完git submodule add 会生成一个文件：.gitmodules， 里面包含了主题的url和路径
 
-    mv pelican-themes themes
-    cp -r /path/to/themes/from/github/neat ./themes/
+    [submodule "pelican-themes"]
+        path = pelican-themes
+        url = https://github.com/getpelican/pelican-themes
 
-然后在 pelicanconf.py 配置文件里添加或修改 THEME项为 neat
+如果前面是已经用了clone 的方式安装，没关系，可以通过下面的来处理
+后面插件的方式类似，这里就一起做处理
 
-    THEME = "neat"
+    rm -rf pelican-themes
+    rm -rf pelican-plugins
+    ga . -A
+    gc -m "remove 2 submodule dirs "
+    git submodule add  https://github.com/getpelican/pelican-themes pelican-themes
+    git submodule add  https://github.com/getpelican/pelican-plugins pelican-plugins
+
+安装niu-x2-sidebar 主题
+
+    git submodule add https://github.com/mawenbao/niu-x2-sidebar pelican-themes/niu-x2-sidebar
+
+如果安装时提示：
+
+    The following path is ignored by one of your .gitignore files:
+    pelican-themes/niu-x2-sidebar
+    Use -f if you really want to add it.
+
+可通过下面方式安装：
+
+    git submodule add -f https://github.com/mawenbao/niu-x2-sidebar pelican-themes/niu-x2-sidebar
+
+主题已经安装成功, 现在.gitmodules 里应该有
+
+    [submodule "pelican-themes/niu-x2-sidebar"]
+        path = pelican-themes/niu-x2-sidebar
+        url = http://github.com/mawenbao/niu-x2-sidebar
+
+但是没有加到 .gitmodules，暂时没找到解决方法。。。
+
+然后在 pelicanconf.py 配置文件里添加或修改 THEME项为 niu-x2-sidebar
+
+    THEME = "niu-x2-sidebar"
 
 重新执行
 
@@ -154,9 +191,12 @@ Pelican本身也提供了一些主题可供选择, 可以从github克隆下来
 然后打开 http://localhost:8000 查看效果
 
 ## 使用插件
+
 Pelican 一开始是将插件内置的, 但是新版本 Pelican将插件隔离了出来, 所以我们要到github上 克隆一份新的插件, 在博客目录执行
 
     git clone git://github.com/getpelican/pelican-plugins.git    # 插件
+    //or 同主题，更推荐下面这种
+    git submodule add  https://github.com/getpelican/pelican-plugins pelican-plugins
 
 现在我们博客目录就新添了一个 pelican-plugins目录, 我们已配置sitemap插件为例, sitemap插件可以生成 sitemap.xml 供搜索引擎使用
 
@@ -190,6 +230,33 @@ Pelican 一开始是将插件内置的, 但是新版本 Pelican将插件隔离�
     make html
 
 打开浏览器请求 http://localhost:8000/sitemap.xml即可看到生成的 Sitemap 了
+
+这里有个问题，如果插件多了怎么办？ 一个一个的手动执行git clone吗？ 不是的，git还是很方便的，这里引入加载子模块的概念
+
+### 添加子模块
+
+    git submodule add https://github.com/wilbur-ma/extract_headings plugins/extract_headings
+
+### 查看子模块
+
+     git submodule  —-查看当前项目用到的子模块
+
+### 初始化子模块
+
+     git submodule init —-只在首次检出仓库时运行一次就行
+     //初始化本质是：将.gitmodules的子模块信息注册到.git/config里。
+
+### 更新子模块
+
+     git submodule update —-每次更新或切换分支后都需要运行一下
+
+### 删除子模块
+
+     git rm --cached [path]
+     //编辑.gitmodules文件，将子模块的相关配置节点删除掉
+     //编辑.git/config文件，将子模块的相关配置节点删除掉
+     //手动删除子模块残留的目录
+
 
 ## 拷贝静态文件
 
@@ -247,3 +314,5 @@ Push an existing repository from the command line
  * <http://jsliang.com/blog/2013/02/moving-to-pelican-hosting-on-github-pages.html>
  * <http://life-sucks.net/blog/blog-with-pelican.html>
  * <http://www.lizherui.com/pages/2013/08/17/build_blog.html>
+ * [子模块操作](http://yyper.com/post/2014/01/26/gitmodules)
+ * [git子模块](http://yuguo.us/weblog/git-submodule/)
