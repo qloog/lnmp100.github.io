@@ -72,10 +72,10 @@ TEMPLATE_PAGES = {
 JINJA_EXTENSIONS = ['jinja2.ext.ExprStmtExtension',]
 
 # plugin config
-PLUGIN_PATH = ['plugins']
+PLUGIN_PATH = ['pelican-plugins']
 PLUGINS = [
     'gzip_cache',
-    #'update_date',
+    'update_date',
     'extract_headings',
     'sitemap',
     'summary',
@@ -120,7 +120,7 @@ SITEMAP = {
         }
 
 # theme config
-THEME = 'themes/niu-x2-sidebar'
+THEME = 'pelican-themes/niu-x2-sidebar'
 
 # niu-x2 theme config
 NIUX2_404_TITLE_TRANSL = '404错误 页面未找到!'
@@ -155,7 +155,7 @@ NIUX2_DISPLAY_TITLE = True
 NIUX2_LAZY_LOAD = True
 NIUX2_LAZY_LOAD_TEXT = '图片加载中'
 NIUX2_TOOLBAR = True
-NIUX2_GITHUB_REPO = 'qloog/pelican-blog-content'
+NIUX2_GITHUB_REPO = 'qloog/lnmp100.github.io'
 
 #NIUX2_LIB_THEME = 'http://atime-me.qiniudn.com/niu-x2'
 #NIUX2_LIB_BOOTSTRAP_JS = 'http://atime-me.qiniudn.com/niu-x2/js/bootstrap.min.js'
@@ -176,17 +176,18 @@ NIUX2_HEADER_SECTIONS = [
         ('项目', 'my projects', '/my_projects.html', 'fa-rocket'),
         ('标签', 'blog tags', '/tag/', 'fa-tag'),
     ]
+
 NIUX2_HEADER_DROPDOWN_SECTIONS = OrderedDict()
 NIUX2_HEADER_DROPDOWN_SECTIONS[('存档', 'fa-archive')] = [
     ('存档 (按发布时间)', 'archives order by publish time', '/archives.html', 'fa-calendar'),
     ('存档 (按修改时间)', 'archives order by modify time', '/archives_updatedate.html', 'fa-pencil'),
 ]
-NIUX2_HEADER_DROPDOWN_SECTIONS = {
-        ('社区', 'fa-user'): [
-			('留言板', 'guestbook', 'javascript:;', 'fa-comment'),
-			(' Wiki', 'dokuwiki', 'javascript:;', 'fa-puzzle-piece'),
-            ],
-    }
+#NIUX2_HEADER_DROPDOWN_SECTIONS = {
+#        ('社区', 'fa-user'): [
+#			('留言板', 'guestbook', 'javascript:;', 'fa-comment'),
+#			(' Wiki', 'dokuwiki', 'javascript:;', 'fa-puzzle-piece'),
+#            ],
+#    }
 NIUX2_FOOTER_LINKS = [
         ('关于', 'about me', '/about.html', ''),
         ('协议', 'terms, license and privacy etc.', '/agreement.html', ''),
