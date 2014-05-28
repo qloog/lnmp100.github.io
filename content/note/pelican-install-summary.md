@@ -243,9 +243,18 @@ Pelican 一开始是将插件内置的, 但是新版本 Pelican将插件隔离�
 
 然后 Pelican 就会将 img目录拷贝到 output/static/ 下
 
-## 将博客部署到github上
+## 将博客发布到github上
 博客最终是要放到互联网上供人看的，此处就是将博客上传上去，在上传之前，要确保github上有一个仓库命令规是username.github.io,其中username为你的github帐号
 
+    cd output
+    git init
+    git add .
+    git commit -m "first commit"
+    git remote add origin git@github.com:username/username.github.io.git
+    git push -u origin master
+
+## 备份博客配置到github
+注意这个和前面的区别：上面主要是发布静态文件上去，这里只是为了用github备份配置等相关文件
 Create a new repository on the command line
 
     cd blog

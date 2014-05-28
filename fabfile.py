@@ -1,73 +1,34 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from datetime import datetime
 from fabric.api import *
-import fabric.contrib.project as project
-import os
-import sys
-import SimpleHTTPServer
-import SocketServer
 
-# Local path configuration (can be absolute or relative to fabfile)
-env.deploy_path = 'output'
-DEPLOY_PATH = env.deploy_path
+# 登录用户和主机名：
+env.user = 'root'
+env.hosts = ['ay'] # 如果有多个主机，fabric会自动依次部署
 
-# Remote server configuration
-production = 'root@localhost:22'
-dest_path = '/var/www'
+def pack():
+    ' 定义一个pack任务 '
+    # 打一个tar包：
+    tar_files = ['output/*']
+    local('rm -f lnmp100.tar.gz')
+    local('tar -czvf lnmp100.tar.gz --exclude=\'*.gz\' --exclude=\'fabfile.py\' %s' % ' '.join(tar_files))
 
-# Rackspace Cloud Files configuration settings
-env.cloudfiles_username = 'my_rackspace_username'
-env.cloudfiles_api_key = 'my_rackspace_api_key'
-env.cloudfiles_container = 'my_cloudfiles_container'
+def deploy():
+    ' 定义一个部署任务 '
+    # 远程服务器的临时文件：
+    remote_tmp_tar = '/tmp/lnmp100.tar.gz'
+    tag = datetime.now().strftime('%y.%m.%d_%H.%M.%S')
 
-
-def clean():
-    if os.path.isdir(DEPLOY_PATH):
-        local('rm -rf {deploy_path}'.format(**env))
-        local('mkdir {deploy_path}'.format(**env))
-
-def build():
-    local('pelican -s pelicanconf.py')
-
-def rebuild():
-    clean()
-    build()
-
-def regenerate():
-    local('pelican -r -s pelicanconf.py')
-
-def serve():
-    os.chdir(env.deploy_path)
-
-    PORT = 8000
-    class AddressReuseTCPServer(SocketServer.TCPServer):
-        allow_reuse_address = True
-
-    server = AddressReuseTCPServer(('', PORT), SimpleHTTPServer.SimpleHTTPRequestHandler)
-
-    sys.stderr.write('Serving on port {0} ...\n'.format(PORT))
-    server.serve_forever()
-
-def reserve():
-    build()
-    serve()
-
-def preview():
-    local('pelican -s publishconf.py')
-
-def cf_upload():
-    rebuild()
-    local('cd {deploy_path} && '
-          'swift -v -A https://auth.api.rackspacecloud.com/v1.0 '
-          '-U {cloudfiles_username} '
-          '-K {cloudfiles_api_key} '
-          'upload -c {cloudfiles_container} .'.format(**env))
-
-@hosts(production)
-def publish():
-    local('pelican -s publishconf.py')
-    project.rsync_project(
-        remote_dir=dest_path,
-        exclude=".DS_Store",
-        local_dir=DEPLOY_PATH.rstrip('/') + '/',
-        delete=True,
-        extra_opts='-c',
-    )
+    # 上传tar文件至远程服务器：
+    put('lnmp100.tar.gz', remote_tmp_tar)
+    # 解压：
+    remote_dist_dir = '/home/wwwroot/lnmp100.com'
+    run('chmod -R u+xr %s' % remote_tmp_tar)
+    run('tar -xzvf %s' % remote_tmp_tar)
+    run('mv output/* %s' % remote_dist_dir)
+    run('rm -f output')
+    # 设定新目录的www权限:
+    run('chown -R www:www %s' % remote_dist_dir)
+    run('rm -f %s' % remote_tmp_tar)
