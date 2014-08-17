@@ -151,7 +151,7 @@ PHP在mac下默认安装了，但是不好控制版本，利用brew可以再mac�
 
 	brew tap homebrew/dupes
 	brew tap josegonzalez/homebrew-php
-	brew install php55 --with-fpm #Nginx
+	brew install --without-apache --with-fpm --with-mysql php55 #Nginx
 	#brew install php55 #Apache
 	
 安装成功后提示：
@@ -163,7 +163,7 @@ PHP在mac下默认安装了，但是不好控制版本，利用brew可以再mac�
 	＃Then to load php55 now:
     	launchctl load ~/Library/LaunchAgents/homebrew.mxcl.php55.plist
 	
-然后修改php的cli路径和apache使用的php模块。在.bashrc或.zshrc里头加以下内容
+然后修改php的cli路径和apache使用的php模块。在~/.bash_profilec或.zshrc里头加以下内容
 
 	#export PATH="$(brew --prefix josegonzalez/php/php55)/bin:$PATH" 
 	export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
@@ -176,8 +176,11 @@ PHP在mac下默认安装了，但是不好控制版本，利用brew可以再mac�
 
 后面会用到mongo和mysql，所以可以直接利用下面命令安装php模块，其他模块也类似
 
-	brew install php55-mysql
+	brew install php55-memcache
+	brew install php55-memcached
+	brew install php55-redis
 	brew install php55-mongo
+	brew install php55-xdebug
 	
 ## MySQL
 
