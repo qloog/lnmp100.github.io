@@ -13,7 +13,11 @@ brew常用选项
 	brew install xxx
 	brew uninstall xxx
 	brew list 
-	brew update xxx
+	brew update xxx 
+	
+还有一个必须要安装的就是os x 自身的命令行开发工具，否则后面的安装也会出问题。
+
+	xcode-select --install  # 弹窗提示后，点击“安装”即可
 	
 ## Apache || Nginx
 
@@ -149,6 +153,15 @@ PHP在mac下默认安装了，但是不好控制版本，利用brew可以再mac�
 	brew tap josegonzalez/homebrew-php
 	brew install php55 --with-fpm #Nginx
 	#brew install php55 #Apache
+	
+安装成功后提示：
+
+	＃To have launchd start php55 at login:
+    	mkdir -p ~/Library/LaunchAgents
+    	ln -sfv /usr/local/opt/php55/*.plist ~/Library/LaunchAgents
+    	
+	＃Then to load php55 now:
+    	launchctl load ~/Library/LaunchAgents/homebrew.mxcl.php55.plist
 	
 然后修改php的cli路径和apache使用的php模块。在.bashrc或.zshrc里头加以下内容
 
