@@ -257,7 +257,7 @@ RockMongo是MongoDB很好用的一个web应用，安装也很容易
 这样就在mac下配置好一个php开发环境了，enjoy it!
 
 参考:
-[Hot to install nginx, PHP-fpm 5.5.6, mongo and MySql on mac with homebrew](http://www.nabito.net/hot-to-install-nginx-php-fpm-5-5-6-mongo-and-mysql-on-mac-with-homebrew/)
-[Install NGINX, PHP-FPM (5.5.6), Mongo and MySql](https://gist.github.com/OzzyCzech/7658282)
-[Install Nginx, PHP-FPM, MySQL and phpMyAdmin on OS X Mavericks using Homebrew](http://blog.frd.mn/install-nginx-php-fpm-mysql-and-phpmyadmin-on-os-x-mavericks-using-homebrew/)
-[Mac下用brew搭建PHP(LNMP/LAMP)开发环境](http://yansu.org/2013/12/11/lamp-in-mac.html)
+ - [Hot to install nginx, PHP-fpm 5.5.6, mongo and MySql on mac with homebrew](http://www.nabito.net/hot-to-install-nginx-php-fpm-5-5-6-mongo-and-mysql-on-mac-with-homebrew/)
+ - [Install NGINX, PHP-FPM (5.5.6), Mongo and MySql](https://gist.github.com/OzzyCzech/7658282)
+ - [Install Nginx, PHP-FPM, MySQL and phpMyAdmin on OS X Mavericks using Homebrew](http://blog.frd.mn/install-nginx-php-fpm-mysql-and-phpmyadmin-on-os-x-mavericks-using-homebrew/)
+ - [Mac下用brew搭建PHP(LNMP/LAMP)开发环境](http://yansu.org/2013/12/11/lamp-in-mac.html)
