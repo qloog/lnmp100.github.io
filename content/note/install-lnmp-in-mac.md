@@ -167,14 +167,16 @@ PHP在mac下默认安装了，但是不好控制版本，利用brew可以再mac�
 
 	#export PATH="$(brew --prefix josegonzalez/php/php55)/bin:$PATH" 
 	export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+	#执行下面命令后，新的php版本生效
+	source ~/.bash_profile
 	
-就用刚刚安装的php代替了系统默认cli的php版本。然后在/etc/apache2/httpd.conf下增加
+如果是apache就用刚刚安装的php代替了系统默认cli的php版本。然后在/etc/apache2/httpd.conf下增加
 
-	LoadModule php5_module /usr/local/Cellar/php55/5.5.8/libexec/apache2/libphp5.so
+	LoadModule php5_module /usr/local/Cellar/php55/5.5.15/libexec/apache2/libphp5.so
 	
 这样就对apache使用的php版本也进行了修改。
 
-后面会用到mongo和mysql，所以可以直接利用下面命令安装php模块，其他模块也类似
+后面会用到mongo和memcache等，所以可以直接利用下面命令安装php模块，其他模块也类似
 
 	brew install php55-memcache
 	brew install php55-memcached
