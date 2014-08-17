@@ -188,49 +188,71 @@ PHP在mac下默认安装了，但是不好控制版本，利用brew可以再mac�
 
 mac不自带mysql，这里需要重新安装，方法依然很简单
 
-brew install mysql
-unset TMPDIR
-mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
-sudo chown -R your_user /usr/local/var/mysql/
-第一句是安装，后面的是确保正常使用。然后是启动命令
+	brew install mysql
 
-mysql.server start
+安装后的提示：
+
+	A "/etc/my.cnf" from another install may interfere with a Homebrew-built
+	server starting up correctly.
+
+	To connect:
+	    mysql -uroot
+	
+	# 开机登录启动mysql
+	To have launchd start mysql at login:
+	    mkdir -p ~/Library/LaunchAgents
+	    ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+	# 手动开启mysql
+	Then to load mysql now:
+	    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+	#非launchctl开启方式
+	Or, if you don't want/need launchctl, you can just run:
+	    mysql.server start
+
 最好给mysql设个密码，方法如下
 
-mysqladmin -u root password 'xxx'
+	mysqladmin -u root password 'xxx'
+	
 如果想修改mysql的配置，在/usr/local/etc下建立一个my.cnf，例如增加log
 
-[mysqld]
-general-log
-general_log_file = /usr/local/var/log/mysqld.log
-MongoDB
+	[mysqld]
+	general-log
+	general_log_file = /usr/local/var/log/mysqld.log
+	
+## MongoDB
+
 MongoDB可以说是最简单的一个，直接执行
 
-brew install mongodb
+	brew install mongodb
+	
 启动方法
 
-mongod --fork
-PHPMyAdmin
+	mongod --fork
+	
+## PHPMyAdmin
+
 phpmyadmin几乎是管理mysql最容易的web应用了吧，每次我都顺道装上。
 
 去官网下载最新的版本
-解压到~/Sites/phpmyadmin下
-在phpmyadmin目录下创建一个可写的config目录
-打开http://localhost/phpmyadmin/setup，安装一个服务，最后保存（这里只需要输入帐号密码就够了）
-将config下生成的config.inc.php移到phpmyadmin根目录下
-删除config
+ - 解压到~/Sites/phpmyadmin下
+ - 在phpmyadmin目录下创建一个可写的config目录
+ - 打开http://localhost/phpmyadmin/setup，安装一个服务，最后保存（这里只需要输入帐号密码就够了）
+ - 将config下生成的config.inc.php移到phpmyadmin根目录下
+ - 删除config
 这样就装好了，虽然可能有点小复杂，但是来一次就习惯了。
 
 这里很可能会遇到2002错误，就是找不到mysql.sock的问题，用下面方法解决
 
-sudo mkdir /var/mysql
-sudo ln -s /tmp/mysql.sock /var/mysql/mysql.sock
-RockMongo
+	sudo mkdir /var/mysql
+	sudo ln -s /tmp/mysql.sock /var/mysql/mysql.sock
+	
+## RockMongo
+
 RockMongo是MongoDB很好用的一个web应用，安装也很容易
 
-去官网下载最新版本
-解压到~/Sites/rockmongo下
-运行http://localhost/rockmongo即可
+ - 去官网下载最新版本
+ - 解压到~/Sites/rockmongo下
+ - 运行http://localhost/rockmongo即可
 完成
 这样就在mac下配置好一个php开发环境了，enjoy it!
 
