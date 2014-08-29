@@ -183,6 +183,7 @@ PHP在mac下默认安装了，但是不好控制版本，利用brew可以再mac�
 	brew install php55-redis
 	brew install php55-mongo
 	brew install php55-xdebug
+	brew install php55-mcrypt    #Laravel 框架依赖此扩展
 	
 ## MySQL
 
