@@ -163,12 +163,14 @@ PHP在mac下默认安装了，但是不好控制版本，利用brew可以再mac�
 	＃Then to load php55 now:
     	launchctl load ~/Library/LaunchAgents/homebrew.mxcl.php55.plist
 	
-然后修改php的cli路径和apache使用的php模块。在~/.bash_profilec或.zshrc里头加以下内容
+然后修改php的cli路径和apache使用的php模块。在~/.bash_profile或.zshrc里头加以下内容
 
 	#export PATH="$(brew --prefix josegonzalez/php/php55)/bin:$PATH" 
 	export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 	#执行下面命令后，新的php版本生效
 	source ~/.bash_profile
+	#或者
+	source ~/.zshrc
 	
 如果是apache就用刚刚安装的php代替了系统默认cli的php版本。然后在/etc/apache2/httpd.conf下增加
 
@@ -184,6 +186,24 @@ PHP在mac下默认安装了，但是不好控制版本，利用brew可以再mac�
 	brew install php55-mongo
 	brew install php55-xdebug
 	brew install php55-mcrypt    #Laravel 框架依赖此扩展
+	
+那么安装后如何对php进行管理呢(这里主要是重启操作)，可以制作一个脚本来管理（/usr/local/etc/php/fpm-restart）：
+
+	#!/bin/sh
+
+	echo "Stopping php-fpm..."
+	launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php55.plist
+	
+	echo "Starting php-fpm..."
+	launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php55.plist
+	
+	echo "php-fpm restarted"
+	exit 0
+	
+然后：
+	chmod ug+x /usr/local/etc/php/fpm-restart
+	cd /usr/local/sbin
+	ln -s /usr/local/etc/php/fpm-restart
 	
 ## MySQL
 
