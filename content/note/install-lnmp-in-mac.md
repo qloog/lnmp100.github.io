@@ -201,6 +201,7 @@ PHP在mac下默认安装了，但是不好控制版本，利用brew可以再mac�
 	exit 0
 	
 然后：
+
 	chmod ug+x /usr/local/etc/php/fpm-restart
 	cd /usr/local/sbin
 	ln -s /usr/local/etc/php/fpm-restart
