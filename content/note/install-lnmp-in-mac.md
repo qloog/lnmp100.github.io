@@ -247,9 +247,17 @@ MongoDB可以说是最简单的一个，直接执行
 
 	brew install mongodb
 	
-启动方法
+成功安装后的提示：
 
-	mongod --fork
+	#开机启动
+	To have launchd start mongodb at login:
+	    ln -sfv /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents
+	#立刻运行
+	Then to load mongodb now:
+	    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
+	#如果不想加入到开机启动，也可以收到运行
+	Or, if you don't want/need launchctl, you can just run:
+	    mongod --config /usr/local/etc/mongod.conf
 	
 ## PHPMyAdmin
 
