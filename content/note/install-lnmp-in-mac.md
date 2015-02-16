@@ -186,6 +186,7 @@ PHP在mac下默认安装了，但是不好控制版本，利用brew可以再mac�
 	brew install php55-mongo
 	brew install php55-xdebug
 	brew install php55-mcrypt    #Laravel 框架依赖此扩展
+	brew install php55-xhprof    #php性能分析工具
 	
 那么安装后如何对php进行管理呢(这里主要是重启操作)，可以制作一个脚本来管理（/usr/local/etc/php/fpm-restart）：
 
