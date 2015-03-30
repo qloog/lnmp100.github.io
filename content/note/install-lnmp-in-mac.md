@@ -71,16 +71,16 @@ Apache的话使用mac自带的基本就够了，我的系统是10.9，可以使�
 	nginx -t
 
 2015-03-30 update: 	
-1. after upgrading from Mavericks to Yosemite I got the following error:
+`after upgrading from Mavericks to Yosemite I got the following error:
 
 	/usr/local/var/run/nginx.pid failed (2 no such file or directory)
 	nginx: [emerg] mkdir() "/usr/local/var/run/nginx/client_body_temp" failed (2: No such file or directory)
 	
-2. All I needed to do to solve this issue was to create the folder:
+All I needed to do to solve this issue was to create the folder:
 
 	mkdir -p /usr/local/var/run/nginx/client_body_temp
 	
-3. OK, 升级碰到的问题解决。	
+OK, 升级碰到的问题解决。`	
 	
 检查是否run起来：
 
