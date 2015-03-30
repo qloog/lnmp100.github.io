@@ -69,17 +69,18 @@ Apache的话使用mac自带的基本就够了，我的系统是10.9，可以使�
 	nginx -s reload|reopen|stop|quit
 	#测试配置是否有语法错误
 	nginx -t
-	
-after upgrading from Mavericks to Yosemite I got the following error:
+
+2015-03-30 update: 	
+1. after upgrading from Mavericks to Yosemite I got the following error:
 
 	/usr/local/var/run/nginx.pid failed (2 no such file or directory)
 	nginx: [emerg] mkdir() "/usr/local/var/run/nginx/client_body_temp" failed (2: No such file or directory)
 	
-All I needed to do to solve this issue was to create the folder:
+2. All I needed to do to solve this issue was to create the folder:
 
 	mkdir -p /usr/local/var/run/nginx/client_body_temp
 	
-OK, 升级碰到的问题解决。	
+3. OK, 升级碰到的问题解决。	
 	
 检查是否run起来：
 
