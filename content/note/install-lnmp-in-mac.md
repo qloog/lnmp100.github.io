@@ -80,6 +80,7 @@ Apache的话使用mac自带的基本就够了，我的系统是10.9，可以使�
 	
 修改Nginx配置文件
 
+	#配置文件地址 /usr/local/etc/nginx/nginx.conf
 	vim nginx.conf
 	
 主要修改位置是最后的include
