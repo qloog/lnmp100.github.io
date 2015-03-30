@@ -59,6 +59,7 @@ Apache的话使用mac自带的基本就够了，我的系统是10.9，可以使�
 想立马run nginx的话，也可以手动执行：
 
 	launchctl load ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+	sudo chown root:wheel ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
 
 如果对launchctl不是太熟悉的话，也可以这么玩：（如果想要监听80端口，必须以管理员身份运行）
 
